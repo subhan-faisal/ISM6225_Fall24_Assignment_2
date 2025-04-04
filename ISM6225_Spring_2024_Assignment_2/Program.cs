@@ -63,7 +63,24 @@ namespace Assignment_2
             try
             {
                 // Write your code here
-                return new List<int>(); // Placeholder
+                // Using HashSet to find missing numbers
+                HashSet<int> numSet = new HashSet<int>(nums);
+
+                // Find the range of numbers ( 1 to the max numbers in the array)
+                int max = nums.Length;
+
+                // Craeate a list to store missing numbers 
+                List<int> missingNumbers = new List<int>();
+
+                // Iterate through the range and check if each number is in the set
+                for (int i = 1; i <= max; i++)
+                {
+                    if (!numSet.Contains(i))
+                    {
+                        missingNumbers.Add(i);
+                    }
+                }
+                return missingNumbers;
             }
             catch (Exception)
             {
@@ -76,8 +93,31 @@ namespace Assignment_2
         {
             try
             {
-                // Write your code here
-                return new int[0]; // Placeholder
+                // Initialize two pointers: left at the beginning, right at the end.
+                int left = 0, right = nums.Length - 1;
+                // Loop until the two pointers meet.
+                while (left < right)
+                {
+                    // If the left element is odd and the right element is even, swap them.
+                    if (nums[left] % 2 != 0 && nums[right] % 2 == 0)
+                    {
+                        int temp = nums[left];
+                        nums[left] = nums[right];
+                        nums[right] = temp;
+                    }
+                    // If the element at left is even, move the left pointer to the right.
+                    if (nums[left] % 2 == 0)
+                    {
+                        left++;
+                    }
+                    // If the element at right is odd, move the right pointer to the left.
+                    if (nums[right] % 2 != 0)
+                    {
+                        right--;
+                    }
+                }
+                // Return the array with evens at the front and odds at the back.
+                return nums;
             }
             catch (Exception)
             {
@@ -90,8 +130,23 @@ namespace Assignment_2
         {
             try
             {
-                // Write your code here
-                return new int[0]; // Placeholder
+                 // Create a dictionary to map numbers to their indices for fast lookup.
+                Dictionary<int, int> map = new Dictionary<int, int>();
+                // Loop over each element in the array.
+                for (int i = 0; i < nums.Length; i++)
+                {
+                    // Calculate the complement needed to reach the target.
+                    int complement = target - nums[i];
+                    // If the complement exists in the dictionary, return its index and the current index.
+                    if (map.ContainsKey(complement))
+                    {
+                        return new int[] { map[complement], i };
+                    }
+                    // Add the current number and its index to the dictionary.
+                    map[nums[i]] = i;
+                }
+                // Return an empty array if no valid pair is found.
+                return new int[0];
             }
             catch (Exception)
             {
@@ -104,8 +159,19 @@ namespace Assignment_2
         {
             try
             {
-                // Write your code here
-                return 0; // Placeholder
+                // Sort the array
+                Array.Sort(nums);
+
+                // Calculate the product of the three largest numbers
+                int n = nums.Length;
+                int product1 = nums[n - 1] * nums[n - 2] * nums[n - 3];
+
+                // Calculate the product of the two smallest numbers and the largest number
+                int product2 = nums[0] * nums[1] * nums[n - 1];
+
+                // Return the maximum of the two products
+                return Math.Max(product1, product2);
+                
             }
             catch (Exception)
             {
@@ -118,8 +184,8 @@ namespace Assignment_2
         {
             try
             {
-                // Write your code here
-                return "101010"; // Placeholder
+                // Use the built-in Convert.ToString method with base 2 to convert the decimal number to its binary representation.
+                return Convert.ToString(decimalNumber, 2);
             }
             catch (Exception)
             {
@@ -132,8 +198,28 @@ namespace Assignment_2
         {
             try
             {
-                // Write your code here
-                return 0; // Placeholder
+                // Initialize the left and right pointers.
+                int left = 0, right = nums.Length - 1;
+
+                // Loop until the left pointer is less than the right pointer.
+                while (left < right)
+                {
+                    // Calculate the mid-point.
+                    int mid = left + (right - left) / 2;
+
+                    // If the middle element is greater than the rightmost element, the minimum is in the right half.
+                    if (nums[mid] > nums[right])
+                    {
+                        left = mid + 1;
+                    }
+                    // Otherwise, the minimum is in the left half or could be the middle element.
+                    else
+                    {
+                        right = mid;
+                    }
+                }
+                // Return the minimum element found at the left pointer.
+                return nums[left];
             }
             catch (Exception)
             {
@@ -146,8 +232,26 @@ namespace Assignment_2
         {
             try
             {
-                // Write your code here
-                return false; // Placeholder
+                // Negative numbers are not palindromes.
+                if (x < 0) return false;
+
+                // store the original number
+                int original = x;
+                int reversed = 0;
+
+                // reverse the number
+                while (x > 0)
+                {
+                    // Get the last digit
+                    int digit = x % 10;
+                    // Build the reversed number
+                    reversed = reversed * 10 + digit;
+                    // Remove the last digit from x
+                    x /= 10;
+                }
+                // Check if the original number is equal to the reversed number
+                return original == reversed;
+        
             }
             catch (Exception)
             {
@@ -160,8 +264,28 @@ namespace Assignment_2
         {
             try
             {
-                // Write your code here
-                return 0; // Placeholder
+                // Base cases
+                if (n == 0) return 0;
+                if (n == 1) return 1;
+
+                // Initialize the first two Fibonacci numbers
+                int prev1 = 0; //F(0)
+                int prev2 = 1; //F(1)
+
+                // variable to store the curernt Fibonacci number
+                int current = 0;
+
+                // compute Fibonacci numbers iteratively
+                for (int i = 2; i <= n; i++)
+                {
+                    // Calculate the current Fibonacci number
+                    current = prev1 + prev2;
+                    // Update the previous two numbers for the next iteration
+                    prev1 = prev2;
+                    prev2 = current;
+                }
+                // Return the nth Fibonacci number
+                return current;
             }
             catch (Exception)
             {
